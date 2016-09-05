@@ -3,7 +3,7 @@ class Butterfly {
   float wave, amp, omega;
   int size, detect_radius;
   color col;
-  boolean top, bot, is_hungry;
+  boolean top, bot, is_hungry, en_route;
   Butterfly() {
     //loc offscreen
     //speed pos or neg depending on where offscreen spawn
@@ -20,9 +20,9 @@ class Butterfly {
       speed = new PVector(-random(.5,2),random(-.5,.5));
       omega = random(.03, .5);
     }
-    col = color(random(0,250),random(0,250),random(0,250));
+    col = color(250);
     amp = random(.5,1);
-    top = bot = false;
+    en_route = top = bot = false;
     detect_radius = int(random(50,100));
   }
   Butterfly(float o, float a) {
@@ -30,7 +30,7 @@ class Butterfly {
     speed = new PVector(random(.5,2),random(-.5,.5));
     omega = o;
     amp = a;
-    col = color(255);
+    col = color(250);
     top = bot = false;
     detect_radius = int(random(50,100));
   }
@@ -49,12 +49,12 @@ class Butterfly {
     loc.x+=speed.x;
     loc.y+=wave + speed.y;
     //keeps butterfly within section of screen y wise
-    if(loc.y > height-100 && !bot) {
+    if(loc.y > height-150 && !bot) {
       speed.y*=-1;
       bot = true;
       top = false;
     }
-    else if(loc.y < 100 && !top) {
+    else if(loc.y < 150 && !top) {
       speed.y*=-1;
       top = true;
       bot = false;
@@ -66,5 +66,13 @@ class Butterfly {
   }
   void eat(color c) {
     //gets color of flower and becomes that color
+    col = c;
+  }
+  void flyTo() {
+    //changes movement to go towards flower 
+    if(!en_route) {
+      
+      en_route = true; 
+    }
   }
 }

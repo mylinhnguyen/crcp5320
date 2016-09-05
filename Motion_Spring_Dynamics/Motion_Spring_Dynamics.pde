@@ -9,6 +9,7 @@ void setup() {
 void draw() {
   background(150,220,250);
   h.display();
+  h.run();
   b.display();
   b.move();
 }
