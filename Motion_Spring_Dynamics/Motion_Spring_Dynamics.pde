@@ -1,11 +1,14 @@
+Habitat h;
 Butterfly b;
 void setup() {
   size(1200,800);
-  b = new Butterfly();
+  b = new Butterfly(.5, .5); //tester
+  h = new Habitat();
 }
 
 void draw() {
-  //background(100,200,250);
+  background(150,220,250);
+  h.display();
   b.display();
   b.move();
 }
