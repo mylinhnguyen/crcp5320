@@ -3,7 +3,7 @@ class Habitat {
   ArrayList<Flower> ff = new ArrayList();
   int b_num, f_num;
   Habitat() {
-    b_num = 10;
+    b_num = 20;
     f_num = 20;
     bb = new Butterfly[b_num];
     for(int j = 0; j < f_num; j++)
@@ -31,13 +31,17 @@ class Habitat {
   void run() {
     for(int i = 0; i < b_num; i++) {
       for(int j = 0; j < f_num; j++) {
-        if(inRange(bb[i], ff.get(i)) && !ff.get(i).eaten) {
+        if(inRange(bb[i], ff.get(i)) && !ff.get(i).eaten && !bb[i].en_route) {
           //butterfly becomes flower color if doesn't have one
-          bb[i].eat(ff.get(i).col);
-          ff.get(i).eaten();
-          offspring(ff.get(i));
+          bb[i].flyTo(ff.get(i).getLoc());
+          //bb[i].eat(ff.get(i).col);
+          //ff.get(i).eaten();
+          //offspring(ff.get(i));
         }
       }
+    }
+    for(int a = 0; a < f_num; a++) {
+      if(ff.get(a).isDead && !ff.get(a).eaten) randomNewFlower(ff.get(a));  
     }
   }
   boolean inRange(Butterfly b, Flower f) {
