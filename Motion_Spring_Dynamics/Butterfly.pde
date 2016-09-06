@@ -23,7 +23,7 @@ class Butterfly {
       omega = random(.03, .5);
     }
     target = new PVector(0,0);
-    col = color(250);
+    col = color(10);
     amp = random(.5,1);
     set = en_route = top = bot = false;
     detect_radius = int(random(50,100));
@@ -51,19 +51,29 @@ class Butterfly {
     //if started on right side, tendency towards left
     if(en_route && !set) {
       //change speed
-      speed.x/=2;
-      speed.y/=2;
-      
+      speed.x/=speed.x;
+      float m = ((target.y - loc.y)/2) / (target.x - loc.x)/2;
+      speed.y = speed.x*m;
+      println("Current Speed: " + speed.x);
+      println("Calc Speed: " + speed.y);
+      //println("Calc Speed: " + );
       set = true;
+    }
+    else if(en_route && set && loc != target) {
+      speed.x=(target.x - loc.x)/100;
+      speed.y = ((target.y - loc.y)/2) / (target.x - loc.x)/2;
+      loc.x+=speed.x;
+      loc.y+=wave + speed.y;
     }
     else if(en_route && set && loc == target) {
       speed.x = 0;
       speed.y = 0;
       amp = 0;
       omega = 0;
+      println("Loc: " + loc + " Target: " + target);
     }
     else {
-      if(en_route) wave = OAMP * sin(OOMEGA * loc.x);
+      if(en_route) wave = 0;
       else  wave = amp * sin(omega*loc.x);
       loc.x+=speed.x;
       loc.y+=wave + speed.y;

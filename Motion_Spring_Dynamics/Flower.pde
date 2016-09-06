@@ -15,7 +15,7 @@ class Flower {
     isDead = eaten = false;
     col = color(random(250),random(250),random(250));
     scent_radius = int(random(5,200));
-    lifespan = int(random(60,120));
+    lifespan = int(random(120,200));
     t = new Timer(int(random(30,60)));
   }
   Flower(color c, int sr) {
