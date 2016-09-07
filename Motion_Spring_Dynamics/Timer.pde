@@ -1,10 +1,10 @@
 class Timer {
   int startSec, startMin, startHour;
   int curSec, curMin, curHour;
-  int duration;
+  int duration, ODURATION;
   boolean start, end;
   Timer(int d) {
-    duration = d;
+    ODURATION = duration = d;
     start = end = false;
   }
   void init() {
@@ -12,10 +12,11 @@ class Timer {
       startSec = second();
       startMin = minute();
       startHour = hour(); 
-      start = end = true;
+      start = true;
     }
   }
   void countdown() {
+    init();
     curSec = second();
     if(curSec != startSec) {
       duration--;
@@ -25,5 +26,9 @@ class Timer {
   }
   int getTime() {
     return duration; 
+  }
+  void reset() {
+    duration = ODURATION;
+    start = end = false;
   }
 }

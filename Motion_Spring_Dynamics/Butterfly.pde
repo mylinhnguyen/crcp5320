@@ -5,7 +5,7 @@ class Butterfly {
   int size, detect_radius;
   color col;
   boolean top, bot, is_hungry, en_route, set;
-  Timer hunger;
+  Timer hunger, feed;
   Butterfly() {
     //loc offscreen
     //speed pos or neg depending on where offscreen spawn
@@ -22,10 +22,11 @@ class Butterfly {
       speed = new PVector(-random(.5,2),random(-.5,.5));
       omega = random(.03, .5);
     }
+    feed = new Timer(5);
     target = new PVector(0,0);
     col = color(10);
     amp = random(.5,1);
-    set = en_route = top = bot = false;
+    is_hungry = set = en_route = top = bot = false;
     detect_radius = int(random(50,100));
   }
   Butterfly(float o, float a) {
@@ -35,7 +36,7 @@ class Butterfly {
     amp = a;
     target = new PVector(0,0);
     col = color(250);
-    top = bot = false;
+    is_hungry = set = en_route = top = bot = false;
     detect_radius = int(random(50,100));
   }
   void display() {
@@ -54,23 +55,30 @@ class Butterfly {
       speed.x/=speed.x;
       float m = ((target.y - loc.y)/2) / (target.x - loc.x)/2;
       speed.y = speed.x*m;
-      println("Current Speed: " + speed.x);
-      println("Calc Speed: " + speed.y);
-      //println("Calc Speed: " + );
       set = true;
     }
-    else if(en_route && set && loc != target) {
+    else if(en_route && set && (loc.x - .1 >= target.x && loc.x + .1 <= target.x) && (loc.y - .1 >= target.y && loc.y + .1 <= target.y)) { //&& loc != target
+      println("Loc: " + loc + " Target: " + target);
       speed.x=(target.x - loc.x)/100;
       speed.y = ((target.y - loc.y)/2) / (target.x - loc.x)/2;
       loc.x+=speed.x;
       loc.y+=wave + speed.y;
     }
-    else if(en_route && set && loc == target) {
+    else if(en_route && set) {
+      println("Stopped");
       speed.x = 0;
       speed.y = 0;
       amp = 0;
       omega = 0;
-      println("Loc: " + loc + " Target: " + target);
+      println(feed.duration);
+      if(!feed.end) 
+        feed.countdown();
+      else {
+        en_route = set =  false;
+        feed.reset();
+        amp = OAMP;
+        omega = OOMEGA;
+      }
     }
     else {
       if(en_route) wave = 0;
