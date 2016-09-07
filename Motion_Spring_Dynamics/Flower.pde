@@ -2,7 +2,8 @@ class Flower {
   PVector base_loc, top_stem;
   PVector speed;
   color col, other;
-  int petal_size, scent_radius, size, lifespan;
+  int petal_size, scent_radius, size, lifespan, offspring;
+  PVector sway;
   boolean isDead, eaten;
   Timer t;
   Flower() {
@@ -17,6 +18,8 @@ class Flower {
     scent_radius = int(random(5,200));
     lifespan = int(random(120,200));
     t = new Timer(int(random(30,60)));
+    offspring = 1;
+    sway = new PVector(random(.03,.07), random(.01,.04));
   }
   Flower(color c, int sr) {
     base_loc = new PVector(random(100,1100), random(50) + height);
@@ -26,6 +29,8 @@ class Flower {
     col = c;
     scent_radius = sr;
     t = new Timer(int(random(30,60)));
+    offspring = 1;
+    sway = new PVector(random(.03,.07), random(.01,.04));
   }
   Flower(PVector l, color c, int sr) {
     base_loc = l;
@@ -35,6 +40,8 @@ class Flower {
     col = c;
     scent_radius = sr;
     t = new Timer(int(random(30,60)));
+    offspring = 1;
+    sway = new PVector(random(.03,.07), random(.01,.04));
   }
   void display() {
     strokeWeight(3);
@@ -48,9 +55,17 @@ class Flower {
     t.countdown();
     //when lifespan in seconds is 0, dies
     if(t.end) isDead = true;
+    move();
   }
   void move() {
     //sway
+    top_stem.x+=sway.x;
+    top_stem.y+=sway.y;
+    println(sway);
+    if(top_stem.x > base_loc.x + 5 || top_stem.x < base_loc.x - 5)
+      sway.x*=-1;
+    if(top_stem.y > base_loc.y + 2 || top_stem.y < base_loc.y - 2)
+      sway.y*=-1;
   }
   void eaten() {
     eaten = true; 

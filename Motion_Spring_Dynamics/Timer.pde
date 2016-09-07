@@ -8,21 +8,27 @@ class Timer {
     start = end = false;
   }
   void init() {
-    if(!start) {
+    if(start) {
       startSec = second();
       startMin = minute();
       startHour = hour(); 
-      start = true;
     }
   }
   void countdown() {
-    init();
-    curSec = second();
-    if(curSec != startSec) {
-      duration--;
-      startSec = curSec;
+    if(!end && start) {
+      curSec = second();
+      if(curSec != startSec) {
+        duration--;
+        startSec = curSec;
+      }
+      if(duration < 0) end = true;
     }
-    if(duration <= 0) end = true;
+  }
+  void go() {
+    if(!start) {
+      start = true;
+      init();
+    }
   }
   int getTime() {
     return duration; 
@@ -30,5 +36,10 @@ class Timer {
   void reset() {
     duration = ODURATION;
     start = end = false;
+  }
+  void quickReset() {
+    duration = ODURATION;
+    end = false;
+    start = true;
   }
 }

@@ -4,7 +4,7 @@ class Butterfly {
   float OAMP = 0.5, OOMEGA = 0.5;
   int size, detect_radius;
   color col;
-  boolean top, bot, is_hungry, en_route, set;
+  boolean top, bot, is_hungry, en_route, set, stop, eating;
   Timer hunger, feed;
   Butterfly() {
     //loc offscreen
@@ -22,11 +22,12 @@ class Butterfly {
       speed = new PVector(-random(.5,2),random(-.5,.5));
       omega = random(.03, .5);
     }
-    feed = new Timer(5);
+    hunger = new Timer(int(random(10,20)));
+    feed = new Timer(2);
     target = new PVector(0,0);
-    col = color(10);
+    col = color(250);
     amp = random(.5,1);
-    is_hungry = set = en_route = top = bot = false;
+    eating = stop = is_hungry = set = en_route = top = bot = false;
     detect_radius = int(random(50,100));
   }
   Butterfly(float o, float a) {
@@ -36,8 +37,10 @@ class Butterfly {
     amp = a;
     target = new PVector(0,0);
     col = color(250);
-    is_hungry = set = en_route = top = bot = false;
+    eating =  stop = is_hungry = set = en_route = top = bot = false;
     detect_radius = int(random(50,100));
+    hunger = new Timer(int(random(10,20)));
+    feed = new Timer(3);
   }
   void display() {
     //Maybe 2 visuals, focus on small, less-detailed for now that moves around screen
@@ -46,8 +49,18 @@ class Butterfly {
     fill(col);
     ellipse(loc.x, loc.y, 10, 10);
   }
-  
+  /*
+  void hunger() {
+    if(!is_hungry) {
+      hunger.go(); 
+      hunger.countdown();
+      if(hunger.end)
+        is_hungry = true;
+    }
+  }
+  */
   void move() {
+    //hunger();
     //if started on left side, tendency towards right
     //if started on right side, tendency towards left
     if(en_route && !set) {
@@ -57,27 +70,44 @@ class Butterfly {
       speed.y = speed.x*m;
       set = true;
     }
-    else if(en_route && set && (loc.x - .1 >= target.x && loc.x + .1 <= target.x) && (loc.y - .1 >= target.y && loc.y + .1 <= target.y)) { //&& loc != target
+    else if(en_route && set && !stop && loc != target) {
       println("Loc: " + loc + " Target: " + target);
-      speed.x=(target.x - loc.x)/100;
-      speed.y = ((target.y - loc.y)/2) / (target.x - loc.x)/2;
+      if(target.x > loc.x) {
+        speed.x=(target.x - loc.x)/100;
+        speed.y = ((target.y - loc.y)/2) / (target.x - loc.x)/2;
+      }
+      else {
+        speed.x=(loc.x - target.x)/100;
+        speed.y = ((loc.y - target.y)/2) / (loc.x - target.x)/2;
+      }
       loc.x+=speed.x;
       loc.y+=wave + speed.y;
+      if((loc.x - 1 < target.x && loc.x + 1 > target.x) 
+      && (loc.y - 1 < target.y && loc.y + 1 > target.y)){
+        stop = true;
+      }
     }
-    else if(en_route && set) {
-      println("Stopped");
+    else if(en_route && set && stop) {
+      println(3);
       speed.x = 0;
       speed.y = 0;
       amp = 0;
       omega = 0;
-      println(feed.duration);
-      if(!feed.end) 
+      eating = true;
+      if(!feed.end) {
+        feed.go();
         feed.countdown();
+      }
       else {
-        en_route = set =  false;
+        println(4);
+        en_route = set = stop =  false;
+        is_hungry = false;
         feed.reset();
-        amp = OAMP;
-        omega = OOMEGA;
+        //hunger.reset();
+        amp = random(.5,1);
+        omega = random(.03,.5);
+        speed = new PVector(random(.5,2),random(-.5,.5));
+        eating = false;
       }
     }
     else {
@@ -103,13 +133,13 @@ class Butterfly {
   }
   void eat(color c) {
     //gets color of flower and becomes that color
-    col = c;
+    if(eating)
+      col = c;
   }
   void flyTo(PVector p) {
     //changes movement to go towards flower 
     if(!en_route) {
       target = p;
-      
       en_route = true; 
     }
   }
