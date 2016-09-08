@@ -11,7 +11,7 @@ class Flower {
     //base_loc a little past bottom of screen
     //top_stem can vary
     //color random
-    base_loc = new PVector(random(100,1100),  height - random(50));
+    base_loc = new PVector(random(100,1100),  height - random(80));
     size = int(random(150,300));
     top_stem = new PVector(base_loc.x, base_loc.y - size);
     isDead = eaten = false;
@@ -38,7 +38,7 @@ class Flower {
     //stem.resize(30,200);
   }
   Flower(color c, int sr) {
-    base_loc = new PVector(random(100,1100), height - random(50));
+    base_loc = new PVector(random(100,1100), height - random(80));
     size = int(random(150,300));
     top_stem = new PVector(base_loc.x, base_loc.y - size);
     isDead = eaten = false;

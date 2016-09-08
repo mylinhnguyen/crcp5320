@@ -36,14 +36,10 @@ class Habitat {
     sun.resize(150, 150);
   }
   void display() {
-    background(150,220,250);
+    background(sky);
     image(sun, 50,50);
     image(grass, width/2, height-200);
     image(grass, width/2, height-110);
-    for(Flower f : ff) 
-    background(sky);
-    image(sun, 75, 75);
-    image(grass, width/2, height-100);
     for (Flower f : ff) 
       f.display();
     for (int i = 0; i < b_num; i++) {

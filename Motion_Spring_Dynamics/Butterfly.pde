@@ -32,10 +32,26 @@ class Butterfly {
     detect_radius = int(random(50,100));
     body = loadImage("butterflyBody.png");
     body.resize(20,20);
-    wingl = loadImage("butterflyLeft.png");
-    wingl.resize(20,30);
-    wingr = loadImage("butterflyRight.png");
-    wingr.resize(20,30);
+    int z = int(random(1,4));
+    if(z == 1) {
+      wingl = loadImage("butterflyLeft.png");
+      wingl.resize(20,30);
+      wingr = loadImage("butterflyRight.png");
+      wingr.resize(20,30);
+    }
+    else if(z == 2) {
+      wingl = loadImage("butterflyGreenLeft.png");
+      wingl.resize(20,30);
+      wingr = loadImage("butterflyGreenRight.png");
+      wingr.resize(20,30);
+    }
+    else {
+      wingl = loadImage("butterflyBlueLeft.png");
+      wingl.resize(20,30);
+      wingr = loadImage("butterflyBlueRight.png");
+      wingr.resize(20,30);
+    }
+    
   }
   Butterfly(float o, float a) {
     loc = new PVector(random(-50, -10), random(100, height - 100));
