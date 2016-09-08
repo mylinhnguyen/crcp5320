@@ -33,9 +33,9 @@ class Butterfly {
     body = loadImage("butterflyBody.png");
     body.resize(20,20);
     wingl = loadImage("butterflyLeft.png");
-    wingl.resize(30,30);
+    wingl.resize(20,30);
     wingr = loadImage("butterflyRight.png");
-    wingr.resize(30,30);
+    wingr.resize(20,30);
   }
   Butterfly(float o, float a) {
     loc = new PVector(random(-50, -10), random(100, height - 100));
@@ -51,9 +51,9 @@ class Butterfly {
     body = loadImage("butterflyBody.png");
     body.resize(20,20);
     wingl = loadImage("butterflyLeft.png");
-    wingl.resize(30,30);
+    wingl.resize(20,30);
     wingr = loadImage("butterflyRight.png");
-    wingr.resize(30,30);
+    wingr.resize(20,30);
   }
   void display() {
     //Maybe 2 visuals, focus on small, less-detailed for now that moves around screen

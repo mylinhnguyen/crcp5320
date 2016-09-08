@@ -1,5 +1,7 @@
 Habitat h;
 Butterfly b;
+PImage sky;
+
 void setup() {
   size(1200,800);
   b = new Butterfly(.5, .5); //tester
@@ -7,7 +9,6 @@ void setup() {
 }
 
 void draw() {
-  background(150,220,250);
   h.display();
   h.run();
   b.display();
