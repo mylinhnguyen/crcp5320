@@ -71,7 +71,7 @@ class Butterfly {
       set = true;
     }
     else if(en_route && set && !stop && loc != target) {
-      println("Loc: " + loc + " Target: " + target);
+      //println("Loc: " + loc + " Target: " + target);
       if(target.x > loc.x) {
         speed.x=(target.x - loc.x)/100;
         speed.y = ((target.y - loc.y)/2) / (target.x - loc.x)/2;
@@ -88,7 +88,6 @@ class Butterfly {
       }
     }
     else if(en_route && set && stop) {
-      println(3);
       speed.x = 0;
       speed.y = 0;
       amp = 0;
@@ -99,7 +98,6 @@ class Butterfly {
         feed.countdown();
       }
       else {
-        println(4);
         en_route = set = stop =  false;
         is_hungry = false;
         feed.reset();
@@ -133,7 +131,6 @@ class Butterfly {
   }
   void eat(color c) {
     //gets color of flower and becomes that color
-    if(eating)
       col = c;
   }
   void flyTo(PVector p) {
@@ -142,5 +139,10 @@ class Butterfly {
       target = p;
       en_route = true; 
     }
+  }
+  boolean outOfBounds() {
+    if((loc.x < -200 || loc.x > width + 200) || (loc.y < -200 || loc.y > height + 200))
+      return true;
+    else return false;
   }
 }

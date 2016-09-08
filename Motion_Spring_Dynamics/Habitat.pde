@@ -3,6 +3,7 @@ class Habitat {
   ArrayList<Flower> ff = new ArrayList();
   int b_num, f_num;
   Timer t;
+  PImage grass, sun, sky;
   Habitat() {
     t = new Timer(60);
     b_num = 20;
@@ -12,6 +13,11 @@ class Habitat {
       ff.add(new Flower());
     for(int i = 0; i < b_num; i++) 
       bb[i] = new Butterfly();
+      imageMode(CENTER);
+    grass = loadImage("grass.png");
+    sun = loadImage("theSun.png");
+    grass.resize(width, 300);
+    sun.resize(100,100);
   }
   Habitat(int b) {
     t = new Timer(60);
@@ -22,8 +28,15 @@ class Habitat {
       ff.add(new Flower());
     for(int i = 0; i < b_num; i++) 
       bb[i] = new Butterfly();
+    grass = loadImage("grass.png");
+    sun = loadImage("theSun.png");
+    grass.resize(width, 500);
+    sun.resize(100,100);
   }
   void display() {
+    background(150,220,250);
+    image(sun, 0,0);
+    image(grass, width/2, height-100);
     for(Flower f : ff) 
       f.display();
     for(int i = 0; i < b_num; i++) {
@@ -40,15 +53,21 @@ class Habitat {
     }
     for(int i = 0; i < b_num; i++) {
       for(int j = 0; j < f_num; j++) {
-        if(inRange(bb[i], ff.get(i)) && !ff.get(i).eaten && !bb[i].en_route) {
-          //butterfly becomes flower color if doesn't have one
-          bb[i].flyTo(ff.get(i).getLoc());
-          bb[i].eat(ff.get(j).col);
-          ff.get(i).eaten();
-          offspring(ff.get(i));
+        if(inRange(bb[i], ff.get(i)) && !ff.get(i).eaten && !bb[i].en_route && 
+        inFront(bb[i], ff.get(j))) {
+          bb[i].flyTo(ff.get(j).getLoc());
+          //bb[i].eat(ff.get(j).col);
+          //ff.get(j).eaten();
+          offspring(ff.get(j));
         }
       }
+      if(bb[i].outOfBounds()) bb[i] = new Butterfly();
     }
+  }
+  boolean inFront(Butterfly b, Flower f) {
+    if((b.loc.x < f.top_stem.x && b.speed.x > 0) || (b.loc.x > f.top_stem.x && b.speed.x < 0))
+      return true;
+    return false; 
   }
   boolean inRange(Butterfly b, Flower f) {
     //change bb omega/amp and calc distance something something
