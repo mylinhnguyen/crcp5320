@@ -37,7 +37,7 @@ class Habitat {
   }
   void display() {
     background(sky);
-    image(sun, 50,50);
+    image(sun, 75,75);
     image(grass, width/2, height-200);
     image(grass, width/2, height-110);
     for (Flower f : ff) 

@@ -2,7 +2,7 @@ class Butterfly {
   PVector loc, speed, target;
   float wave, amp, omega;
   float OAMP = 0.5, OOMEGA = 0.5;
-  int size, detect_radius;
+  int size, detect_radius, w, expand = 1, OWIDTH;
   color col;
   boolean top, bot, is_hungry, en_route, set, stop, eating;
   Timer hunger, feed;
@@ -51,7 +51,7 @@ class Butterfly {
       wingr = loadImage("butterflyBlueRight.png");
       wingr.resize(20,30);
     }
-    
+    OWIDTH = w = wingl.width;
   }
   Butterfly(float o, float a) {
     loc = new PVector(random(-50, -10), random(100, height - 100));
@@ -70,6 +70,7 @@ class Butterfly {
     wingl.resize(20,30);
     wingr = loadImage("butterflyRight.png");
     wingr.resize(20,30);
+    OWIDTH = w = wingl.width;
   }
   void display() {
     //Maybe 2 visuals, focus on small, less-detailed for now that moves around screen
@@ -97,6 +98,12 @@ class Butterfly {
     //hunger();
     //if started on left side, tendency towards right
     //if started on right side, tendency towards left
+    //wing movements ------------- COULD CHANGE FOR MOVEMENT
+    //w+=expand;
+    //wingl.resize(w, w);
+    //wingr.resize(w, w);
+    //if(w > OWIDTH + 10) expand*=-1;
+    //else if(w < OWIDTH - 10) expand*=-1;
     if(en_route && !set) {
       //change speed
       speed.x/=speed.x;
