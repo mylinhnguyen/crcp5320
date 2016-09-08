@@ -35,8 +35,9 @@ class Habitat {
   }
   void display() {
     background(150,220,250);
-    image(sun, 0,0);
-    image(grass, width/2, height-100);
+    image(sun, 50,50);
+    image(grass, width/2, height-200);
+    image(grass, width/2, height-110);
     for(Flower f : ff) 
       f.display();
     for(int i = 0; i < b_num; i++) {

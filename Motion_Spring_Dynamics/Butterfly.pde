@@ -6,6 +6,7 @@ class Butterfly {
   color col;
   boolean top, bot, is_hungry, en_route, set, stop, eating;
   Timer hunger, feed;
+  PImage body, wingl, wingr;
   Butterfly() {
     //loc offscreen
     //speed pos or neg depending on where offscreen spawn
@@ -29,6 +30,12 @@ class Butterfly {
     amp = random(.5,1);
     eating = stop = is_hungry = set = en_route = top = bot = false;
     detect_radius = int(random(50,100));
+    body = loadImage("butterflyBody.png");
+    body.resize(20,20);
+    wingl = loadImage("butterflyLeft.png");
+    wingl.resize(30,30);
+    wingr = loadImage("butterflyRight.png");
+    wingr.resize(30,30);
   }
   Butterfly(float o, float a) {
     loc = new PVector(random(-50, -10), random(100, height - 100));
@@ -41,13 +48,24 @@ class Butterfly {
     detect_radius = int(random(50,100));
     hunger = new Timer(int(random(10,20)));
     feed = new Timer(3);
+    body = loadImage("butterflyBody.png");
+    body.resize(20,20);
+    wingl = loadImage("butterflyLeft.png");
+    wingl.resize(30,30);
+    wingr = loadImage("butterflyRight.png");
+    wingr.resize(30,30);
   }
   void display() {
     //Maybe 2 visuals, focus on small, less-detailed for now that moves around screen
     //other visual close-up, more detailed ?
+    /*
     noStroke();
     fill(col);
     ellipse(loc.x, loc.y, 10, 10);
+    */
+    image(body, loc.x, loc.y);
+    image(wingl, loc.x-wingl.width/2, loc.y);
+    image(wingr, loc.x + wingr.width/2, loc.y);
   }
   /*
   void hunger() {

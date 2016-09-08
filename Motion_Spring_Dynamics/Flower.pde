@@ -21,6 +21,32 @@ class Flower {
     t = new Timer(int(random(30,60)));
     offspring = 1;
     sway = new PVector(random(.03,.07), random(.01,.04));
+    int z = int(random(1,4));
+    if(z == 1) {
+      petal = loadImage("flowerRed.png");
+      petal.resize(100,100);
+    }
+    else if(z == 2) {
+      petal = loadImage("flowerBlue.png");
+      petal.resize(100,100);
+    }
+    else {
+      petal = loadImage("flowerYellow.png");
+      petal.resize(100,100);
+    }
+    //stem = loadImage("stem.png");
+    //stem.resize(30,200);
+  }
+  Flower(color c, int sr) {
+    base_loc = new PVector(random(100,1100), height - random(50));
+    size = int(random(150,300));
+    top_stem = new PVector(base_loc.x, base_loc.y - size);
+    isDead = eaten = false;
+    col = c;
+    scent_radius = sr;
+    t = new Timer(int(random(30,60)));
+    offspring = 1;
+    sway = new PVector(random(.03,.07), random(.01,.04));
     int z = int(random(1,3));
     if(z == 1) {
       petal = loadImage("flowerRed.png");
@@ -34,23 +60,6 @@ class Flower {
       petal = loadImage("flowerYellow.png");
       petal.resize(100,100);
     }
-    stem = loadImage("stem.png");
-    stem.resize(30,200);
-  }
-  Flower(color c, int sr) {
-    base_loc = new PVector(random(100,1100), height - random(50));
-    size = int(random(150,300));
-    top_stem = new PVector(base_loc.x, base_loc.y - size);
-    isDead = eaten = false;
-    col = c;
-    scent_radius = sr;
-    t = new Timer(int(random(30,60)));
-    offspring = 1;
-    sway = new PVector(random(.03,.07), random(.01,.04));
-    petal = loadImage("flowerRed.png");
-    stem = loadImage("stem.png");
-    petal.resize(100,100);
-    stem.resize(30,200);
   }
   Flower(PVector l, color c, int sr) {
     base_loc = l;
@@ -62,10 +71,19 @@ class Flower {
     t = new Timer(int(random(30,60)));
     offspring = 1;
     sway = new PVector(random(.03,.07), random(.01,.04));
-    petal = loadImage("flowerRed.png");
-    stem = loadImage("stem.png");
-    petal.resize(100,100);
-    stem.resize(30,200);
+    int z = int(random(1,3));
+    if(z == 1) {
+      petal = loadImage("flowerRed.png");
+      petal.resize(100,100);
+    }
+    else if(z == 2) {
+      petal = loadImage("flowerBlue.png");
+      petal.resize(100,100);
+    }
+    else {
+      petal = loadImage("flowerYellow.png");
+      petal.resize(100,100);
+    }
   }
   void display() {
     /*
@@ -81,7 +99,7 @@ class Flower {
     //when lifespan in seconds is 0, dies
     if(t.end) isDead = true;
     */
-    image(stem, base_loc.x, base_loc.y);
+    //image(stem, base_loc.x, base_loc.y);
     image(petal, top_stem.x, top_stem.y);
     move();
   }
