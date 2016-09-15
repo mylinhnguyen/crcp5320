@@ -46,9 +46,9 @@ class Butterfly {
       wingr.resize(20,30);
     }
     else {
-      wingl = loadImage("butterflyBlueLeft.png");
+      wingl = loadImage("butterflyPurpleLeft.png");
       wingl.resize(20,30);
-      wingr = loadImage("butterflyBlueRight.png");
+      wingr = loadImage("butterflyPurpleRight.png");
       wingr.resize(20,30);
     }
     OWIDTH = w = wingl.width;
