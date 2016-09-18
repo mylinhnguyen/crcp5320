@@ -5,5 +5,6 @@ void setup() {
 }
 
 void draw() {
+  background(150);
   s.display();
 }

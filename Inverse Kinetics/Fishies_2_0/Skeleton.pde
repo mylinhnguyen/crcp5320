@@ -14,9 +14,9 @@ class Skeleton {
     len = l; 
   }
   void display() {
-    background(150);
     calculate();
-    
+    for(int i = 0; i < 4; i++) 
+      ellipse(nloc[i].x, nloc[i].y, 10, 10);
   }
   void calculate() {
     mx = 0 + 300 * cos(radians(a)); //mouseX - width/2;
@@ -24,14 +24,17 @@ class Skeleton {
     nloc[3].x = mx;
     nloc[3].y = my;
     translate(width/2, height/2);
-    float theta;
+    float theta, wave;
     for(int i = 3; i > 0; i--) {
       theta = atan2(nloc[i].y - nloc[i-1].y, nloc[i].x - nloc[i-1].x);
-      nloc[i-1].x = nloc[i].x - cos(theta) * len;
+      wave = sin(nloc[i-1].x);
+      nloc[i-1].x = (nloc[i].x - cos(theta) * len) + wave;
       nloc[i-1].y = nloc[i].y - sin(theta) * len;
     }
-    for(int i = 0; i < 4; i++) 
-      ellipse(nloc[i].x, nloc[i].y, 10, 10);
+    //
+    /*wave = amp * sin(omega*loc.x);
+    */
+    //
     a++;
     if(a > 360) a = 0;
     /*
