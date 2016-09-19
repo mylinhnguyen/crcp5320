@@ -1,16 +1,17 @@
 //uses code from Ira Greenberg's Processing/ik_atan_ver01.pde
 class Skeleton {
-  PVector[] nloc = new PVector[4];
-  int[] lens = new int[4]; 
+  PVector[] nloc = new PVector[5];
+  int[] lens = new int[5]; 
   float mx, my;
   float a;
   Skeleton() {
     lens[0] = 20;
     lens[1] = 30;
-    lens[2] = 60;
-    lens[3] = 40;
-    for(int i = 0; i < 4; i++)
-      nloc[i] = new PVector(lens[i]*i, 0);
+    lens[2] = 50;
+    lens[3] = 60;
+    lens[4] = 40;
+    for(int i = 0; i < nloc.length; i++)
+      nloc[i] = new PVector(0, 0);
     a = 0;
   }
   Skeleton(int angle) {
@@ -18,25 +19,33 @@ class Skeleton {
     lens[1] = 30;
     lens[2] = 60;
     lens[3] = 40;
-    for(int i = 0; i < 4; i++)
+    for(int i = 0; i < nloc.length; i++)
       nloc[i] = new PVector(lens[i]*i, 0);
     a = angle;
   }
   void display() {
+    pushMatrix();
     calculate();
-    stroke(10);
+    //stroke(10);
+    noStroke();
+    //fill(10);
+    //for(int j = 0; j < nloc.length; j++) 
+    //  ellipse(nloc[j].x, nloc[j].y, lens[j]*1.4, lens[j]*1.4);
     fill(250);
-    for(int i = 0; i < 4; i++) 
+    for(int i = 0; i < nloc.length; i++)
       ellipse(nloc[i].x, nloc[i].y, lens[i], lens[i]);
+    fill(250,0,0);
+    ellipse(nloc[4].x, nloc[4].y, 20,20);
+    popMatrix();
   }
   void calculate() {
     mx = 0 + 300 * cos(radians(a)); //mouseX - width/2;
     my = 0 + 300 * sin(radians(a)); //mouseY - height/2;
-    nloc[3].x = mx;
-    nloc[3].y = my;
+    nloc[4].x = mx;
+    nloc[4].y = my;
     translate(width/2, height/2);
     float theta, wave;
-    for(int i = 3; i > 0; i--) {
+    for(int i = nloc.length - 1; i > 0; i--) {
       theta = atan2(nloc[i].y - nloc[i-1].y, nloc[i].x - nloc[i-1].x);
       wave = 1 * sin(.05 * nloc[i-1].x);
       nloc[i-1].x = (nloc[i].x - cos(theta) * lens[i]) + wave;
