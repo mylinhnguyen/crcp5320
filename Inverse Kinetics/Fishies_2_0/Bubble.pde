@@ -15,9 +15,9 @@ class Bubble {
     for(int i = 0; i < waves.length; i++) {
       waves[i] = (i * size) + r;
     }
-    r = 100;
-    g = 200;
-    b = 250;
+    r = 150;
+    g = 170;
+    b = 170;
     once = gone = false;
   }
   void display() {
