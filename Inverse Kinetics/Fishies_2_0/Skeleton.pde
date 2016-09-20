@@ -4,7 +4,7 @@ class Skeleton {
   int[] lens = new int[5]; 
   PVector speed;
   float mx, my;
-  float a;
+  float a, dvalue;
   float wave, omega, amp;
   boolean BLACK, WHITE, GOLD;
   Skeleton() {
@@ -16,6 +16,7 @@ class Skeleton {
     for(int i = 0; i < nloc.length; i++)
       nloc[i] = new PVector(0, 0);
     a = 0;
+    dvalue = .6;
     speed = new PVector(random(-1,2),random(-1,.5));
     WHITE = true;
   }
@@ -28,6 +29,7 @@ class Skeleton {
     for(int i = 0; i < nloc.length; i++)
       nloc[i] = new PVector(lens[i]*i, 0);
     a = angle;
+    dvalue = .6;
     WHITE = true;
   }
   Skeleton(int angle, String s) {
@@ -39,6 +41,7 @@ class Skeleton {
     for(int i = 0; i < nloc.length; i++)
       nloc[i] = new PVector(lens[i]*i, 0);
     a = angle;
+    dvalue = .6;
     if(s == "BLACK") BLACK = true;
     else if(s == "WHITE") WHITE = true;
     else if(s == "GOLD") GOLD = true;
@@ -118,7 +121,7 @@ class Skeleton {
     /*wave = amp * sin(omega*loc.x);
     */
     //
-    a+=.6;
+    a+=dvalue;
     if(a > 360) a = 0;
     /*
     float theta = atan2(nloc[3].y - nloc[2].y, nloc[3].x - nloc[2].x);

@@ -4,6 +4,7 @@ class Pond {
   PImage border, bottom;
   ArrayList<Rain> rain = new ArrayList<Rain>();
   ArrayList<Bubble> bub = new ArrayList<Bubble>();
+  Firefly[] ff = new Firefly[20];
   boolean dayNight;
   Pond() {
     border = loadImage("plants2.png");
@@ -15,6 +16,8 @@ class Pond {
     u = new Skeleton(240, "GOLD");
     bub.add(new Bubble());
     rain.add(new Rain());
+    for(int i = 0; i < ff.length; i++) 
+      ff[i] = new Firefly();
   }
   void display() {
     //background(145,200,200);
@@ -40,8 +43,10 @@ class Pond {
       fill(10,170);
       rect(0, 0, width, height);
       image(border,width/2, height/2);
-      fill(10,50);
+      fill(10,60);
       rect(0, 0, width, height);
+      for(int i = 0; i < ff.length; i++) 
+        ff[i].display();
     }
     else {
       image(border,width/2, height/2);
