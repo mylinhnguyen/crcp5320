@@ -15,9 +15,24 @@ class Bubble {
     for(int i = 0; i < waves.length; i++) {
       waves[i] = (i * size) + r;
     }
-    r = 150;
-    g = 170;
-    b = 170;
+    r = 100;
+    g = 130;
+    b = 160;
+    once = gone = false;
+  }
+  Bubble(PVector p) {
+    loc = p;
+    size = random(20,80);
+    alpha[0] = 250;
+    alpha[1] = 0;
+    alpha[2] = 0;
+    float r = random(5,15);
+    for(int i = 0; i < waves.length; i++) {
+      waves[i] = (i * size) + r;
+    }
+    r = 100;
+    g = 130;
+    b = 160;
     once = gone = false;
   }
   void display() {
